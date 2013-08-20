@@ -1,0 +1,146 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/bootstrap.css" >
+<script src="js/jquery-2.0.3.js"></script>
+</head>
+<body>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<style>
+a{
+	
+	margin: 8px;
+	float : left;
+}
+</style>
+
+
+<header>Page Photo</header>
+
+	<div class="navbar" >
+		<div class="navbar-inner">
+		
+		<a><img src = "img/iconmonstr-details-small-view-icon.png" width="18" height="18"></a>
+		<center><h5>Page Photo</h5></center>
+		</div>
+	</div>
+<script>
+  //get a Facebook object   
+  FB.init({
+    appId  : '416035068480659',
+    status : true, 
+    cookie : true, 
+    xfbml  : true  
+  });
+</script>
+    
+<script type="text/javascript">
+    
+    
+    /////////// First ////////////////////////////////////////////////////////////
+    var paging ; 
+    var page = "http://graph.facebook.com/192938337503366/photos";
+    var id ;
+    var like;
+    var n = 0 ;
+
+    $.ajax(
+    {
+        url: "http://graph.facebook.com/192938337503366/photos"
+    }
+    ).done(function(data) {
+        
+        paging = data.paging.next;
+        ////// FQL Query ////// 
+        // select like_info from photo where object_id = 368495783280953;
+        ///////////////////////
+        $.each(data.data, function(key, value){  
+            FB.api(
+            {
+                method: 'fql.query',
+                query: 'select like_info from photo where object_id = ' + value.id
+            },
+            function(data) {              
+                like = data[0].like_info.like_count ;
+                //console.log(data);
+                if(like > 8000){
+                        var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
+                                    var m = "<ul class='thumbnails'><li class='span4'><a  onclick=showConfirm() class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
+                                    $("body").append(m);
+                }
+            });
+            
+        });
+    
+    });  
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    
+    //var int = self.setInterval(function(){
+    function getNextPage()
+    {
+        $.ajax(
+        {
+            url: page
+        }
+        ).done(function(data) {
+            
+            paging = data.paging.next;
+            n=0;
+            $.each(data.data, function(key, value){  
+                FB.api(
+                {
+                    method: 'fql.query',
+                    query: 'select like_info from photo where object_id = ' + value.id
+                },
+                function(data) {              
+                    like = data[0].like_info.like_count ;
+                    //console.log(data);
+                    if(like > 8000){
+                        var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
+                                    var m = "<ul class='thumbnails'><li class='span4'><a  onclick=showConfirm() class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
+                                    $("body").append(m);
+                    }
+                });
+            });
+        
+        });    
+    }
+    
+    $(window).scroll(function(e){
+            var scrollTop = $(window).scrollTop(); // current position scrool
+            var winHeight = $(document).height();   // 
+            var scrollPercent = (scrollTop * 100) / (winHeight) ;
+            var scrollPercentRounded = Math.round(scrollPercent*100)/100;
+            
+            console.log(scrollPercentRounded)
+            
+            if(scrollPercentRounded > 80 && n==0){
+                page = paging;
+                console.log("NextPage");
+                getNextPage();
+                n = 1;
+            }
+		});
+            
+    //},10000);   
+	
+
+    // Show a custom confirmation dialog
+    //
+    function showConfirm() {
+	like = data[0].like_info.like_count
+        navigator.notification.confirm(
+            'like'+ like // message
+                  // buttonLabels
+        );
+    }
+    
+    
+</script>
+
+
+
+
+
+</body>
+</html>
