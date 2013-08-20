@@ -24,6 +24,9 @@ a{
 		<center><h5>Page Photo</h5></center>
 		</div>
 	</div>
+	
+	<div id="facebook">
+	</div>
 <script>
   //get a Facebook object   
   FB.init({
@@ -65,8 +68,8 @@ a{
                 //console.log(data);
                 if(like > 8000){
                         var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
-                                    var m = "<ul class='thumbnails'><li class='span4'><a  onclick=showConfirm() class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
-                                    $("body").append(m);
+                                    var m = "<ul class='thumbnails'><li class='span4'><a   class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
+                                    $("#facebook").append(m);
                 }
             });
             
@@ -98,8 +101,8 @@ a{
                     //console.log(data);
                     if(like > 8000){
                         var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
-                                    var m = "<ul class='thumbnails'><li class='span4'><a  onclick=showConfirm() class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
-                                    $("body").append(m);
+                                    var m = "<ul class='thumbnails'><li class='span4'><a   class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
+                                    $("#facebook").append(m);
                     }
                 });
             });
