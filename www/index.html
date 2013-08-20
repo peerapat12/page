@@ -14,9 +14,6 @@ a{
 }
 </style>
 
-
-<header>Page Photo</header>
-
 	<div class="navbar" >
 		<div class="navbar-inner">
 		
@@ -66,9 +63,9 @@ a{
             function(data) {              
                 like = data[0].like_info.like_count ;
                 //console.log(data);
-                if(like > 8000){
-                        var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
-                                    var m = "<ul class='thumbnails'><li class='span4'><a   class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
+                if(like > 5000){
+                        //var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
+                        var m = "<ul class='thumbnails'><li class='span4'><a   class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
                                     $("#facebook").append(m);
                 }
             });
@@ -99,7 +96,7 @@ a{
                 function(data) {              
                     like = data[0].like_info.like_count ;
                     //console.log(data);
-                    if(like > 8000){
+                    if(like > 5000){
                         var m = "<img src='"+value.source+"'>"+ value.id +" Like "+ like + "<hr>";
                                     var m = "<ul class='thumbnails'><li class='span4'><a   class='thumbnail'><img class='image' src='"+value.source+"' value='"+like+"'></a></li></ul>" ;
                                     $("#facebook").append(m);
@@ -116,7 +113,7 @@ a{
             var scrollPercent = (scrollTop * 100) / (winHeight) ;
             var scrollPercentRounded = Math.round(scrollPercent*100)/100;
             
-            console.log(scrollPercentRounded)
+            //console.log(scrollPercentRounded)
             
             if(scrollPercentRounded > 80 && n==0){
                 page = paging;
